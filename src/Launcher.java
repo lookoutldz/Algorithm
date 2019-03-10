@@ -2,36 +2,43 @@ import sort.InsertionSort;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Random;
 
 public class Launcher {
 
     public static void main(String[] args){
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("输入要排序的数字个数：");
-        int num = sc.nextInt();
-        if (num > 0){
-            List<Integer> list = new ArrayList<>();
-            for (int i = 0; i < num; i++){
-                System.out.print("请输入第"+(i+1)+"个数的值：");
-                list.add(sc.nextInt());
-            }
-
-            System.out.println("输入的数组为：");
-            show(list);
-
-            list = InsertionSort.sort(list);
-
-            System.out.println("\n排序后的数组为：");
-            show(list);
+        int times = 10;
+        long seed = System.currentTimeMillis();
+        Random r = new Random(seed);
+        List<Integer> integerList = new ArrayList<>(16);
+        int[] ints = new int[times];
+        for (int i = 0; i < times; i++) {
+            int randomInt = r.nextInt(10);
+            integerList.add(randomInt);
+            ints[i] = randomInt;
         }
+        show(integerList);
+        InsertionSort.sort(integerList);
+        show(integerList);
+        show(ints);
+        InsertionSort.sort(ints);
+        show(ints);
     }
 
-    public static void show(List<Integer> list){
+    private static void show(List<Integer> list){
 
-        for (int i = 0; i < list.size(); i++){
-            System.out.print(list.get(i)+"\t");
+        for (Integer integer : list) {
+            System.out.println(integer + "    ");
         }
+        System.out.println();
+    }
+
+    private static void show(int[] list){
+
+        for (int i : list) {
+            System.out.println(i + "    ");
+        }
+        System.out.println();
     }
 }
